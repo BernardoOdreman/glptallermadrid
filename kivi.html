@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -53,7 +53,7 @@
 
         <div class="nav-menu-container">
             <ul class="main-menu">
-                <li><a href="http://localhost:3000/home">Home</a></li>
+                <li><a href="http://18.223.97.68:3000/home">Home</a></li>
                 <li class="has-submenu">
                     <a href="#">Empresa</a>
                     <ul class="submenu">
@@ -67,8 +67,8 @@
                 <li class="has-submenu">
                     <a href="#">Servicios</a>
                     <ul class="submenu">
-                        <li><a href="http://localhost:3000/transformaciones-glp">TRANSFORMACIONES GLP</a></li>
-                        <li><a href="http://localhost:3000/transformaciones-kivi">TRANSFORMACIONES KIVI</a></li>
+                        <li><a href="glp">TRANSFORMACIONES GLP</a></li>
+                        <li><a href="kivi">TRANSFORMACIONES KIVI</a></li>
                         <li><a href="https://kimotor2005.es/taller-de-mecanica-y-electricidad/">MECÁNICA Y ELECTRICIDAD</a></li>
                         <li><a href="https://kimotor2005.es/chapa-y-pintura-alcobendas/">TALLER DE CHAPA Y PINTURA</a></li>
                         <li><a href="https://kimotor2005.es/neumaticos/">NEUMÁTICOS</a></li>
@@ -232,9 +232,7 @@
                             <div class="carousel-slide">
                                 <img src="https://www.cochesadaptados.net/wp-content/uploads/2020/03/KS-WIRELESS-REMOVIBLE-ACELERADOR-DE-ARO-SOBRE-EL-VOLANTE-KS-WIRELESS-3.jpg" alt="Kivi K5 Easy-Fit">
                             </div>
-                            <div class="carousel-slide">
-                                <img src="https://automecanicapaulista.com.br/wp-content/uploads/2019/10/Aro-sob-o-volante-K5-easy-fit-FIAT-500L.jpg" alt="Kivi K5 Easy-Fit vista lateral">
-                            </div>
+
                             <div class="carousel-slide">
                                 <img src="https://i.ytimg.com/vi/AJ7otMBGsi4/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCrVU44RqIc4xIEqN1zYB7Yc3rQFg" alt="Kivi K5 Easy-Fit instalado">
                             </div>
@@ -1216,7 +1214,7 @@
                 messagesContainer.scrollTop = messagesContainer.scrollHeight;
 
                 // Enviar mensaje al backend usando Axios
-                axios.post('http://localhost:3000/api/chat', { mensaje: message })
+                axios.post('http://18.223.97.68:3000/api/chat', { mensaje: message })
                     .then(response => {
                         // Eliminar indicador de typing
                         messagesContainer.removeChild(typingIndicator);
