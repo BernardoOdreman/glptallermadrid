@@ -1214,7 +1214,7 @@
                 messagesContainer.scrollTop = messagesContainer.scrollHeight;
 
                 // Enviar mensaje al backend usando Axios
-                axios.post('18.223.97.68:3000/api/chat', { mensaje: message })
+                axios.post('http://18.223.97.68:3000/api/chat', { mensaje: message })
                     .then(response => {
                         // Eliminar indicador de typing
                         messagesContainer.removeChild(typingIndicator);
