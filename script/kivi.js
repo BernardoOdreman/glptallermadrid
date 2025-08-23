@@ -217,7 +217,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Enviar datos al f
                 console.log(formData)
                 const response = await axios.post(
-                    'http://localhost:3000/solicitud',
+                    'http://127.0.0.1:8000/solicitud',
                     formData,
                     {
                         headers: {
