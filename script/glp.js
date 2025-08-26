@@ -222,7 +222,7 @@ async function handleFormSubmit(e) {
                 'apikey': SUPABASE_PUBLISHABLE_KEY
             },
             body: JSON.stringify({
-                to: 'odremanbernardo2@gmail.com',  // Destinatario fijo
+                to: 'postventa@kimotor2005.es',  // Destinatario fijo
                 from: formData.email,
                 subject: `Solicitud de Presupuesto GLP - ${formData.nombre} ${formData.apellidos}`,
                 text: `Nueva solicitud de presupuesto para conversión GLP de ${formData.nombre} ${formData.apellidos}. Vehículo: ${formData.marca} ${formData.modelo} (${formData.anio}). Teléfono: ${formData.telefono}. Email: ${formData.email}`,
