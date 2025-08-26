@@ -789,6 +789,152 @@
 
             <div id="notification" class="notification hidden"></div>
 
+            <div class="privacy-policy-card">
+
+
+
+
+  <div class="flex items-start mb-4">
+    <div class="flex items-center h-5">
+      <input
+        id="privacy-policy"
+        name="privacy-policy"
+        type="checkbox"
+        class="custom-checkbox"
+        required
+      >
+    </div>
+    <div class="ms-3 text-sm">
+      <label for="privacy-policy" class="privacy-label">
+       <i class="fas fa-shield-alt"></i> <i>Acepto que, conforme al </i>
+        <a href="https://eur-lex.europa.eu/eli/reg/2016/679/oj/eng" class="privacy-link" target="_blank">
+          RGPD (Reglamento UE 2016/679)
+        </a>
+        <i> y la </i>
+        <a href="https://www.aepd.es/es" class="privacy-link" target="_blank">
+          LOPD-GDD (Ley Orgánica 3/2018)
+        </a>.
+        <i> Tus datos se utilizarán exclusivamente para gestionar tu solicitud y no se compartirán con terceros sin tu consentimiento expreso. Tienes derecho a acceder, rectificar y suprimir tus datos, así como otros derechos como se explica en nuestra política de privacidad. </i>
+      </label>
+    </div>
+  </div>
+
+
+</div>
+
+<style>
+.privacy-policy-card {
+  background: #f9fafb;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 16px 0;
+  border: 1px solid #e5e7eb;
+  transition: all 0.3s ease;
+}
+
+.privacy-policy-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.privacy-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  color: #374151;
+}
+
+.privacy-header i {
+  color: #6366f1;
+  margin-right: 10px;
+  font-size: 20px;
+}
+
+.privacy-header h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.custom-checkbox {
+  width: 20px;
+  height: 20px;
+  text-indigo-600;
+  bg-gray-100;
+  border-gray-300;
+  rounded;
+  focus:ring-indigo-500;
+  dark:focus:ring-indigo-600;
+  dark:ring-offset-gray-800;
+  focus:ring-2;
+  dark:bg-gray-700;
+  dark:border-gray-600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.custom-checkbox:hover {
+  border-color: #6366f1;
+  transform: scale(1.08);
+}
+
+.privacy-label {
+  font-weight: 400;
+  color: #4b5563;
+  line-height: 1.5;
+}
+
+.privacy-link {
+
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  border-bottom: 1px dotted transparent;
+}
+
+
+
+/* Estilos para modo oscuro */
+@media (prefers-color-scheme: dark) {
+  .privacy-policy-card {
+    background: #1f2937;
+    border-color: #374151;
+  }
+
+  .privacy-header {
+    color: #f3f4f6;
+  }
+
+  .privacy-label {
+    color: #d1d5db;
+  }
+
+  .privacy-summary {
+    background: #312e81;
+    color: #e0e7ff;
+  }
+}
+</style>
+
+<script>
+// Añadir Font Awesome si no está ya incluido
+if (!document.querySelector('link[href*="font-awesome"]')) {
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css';
+  document.head.appendChild(link);
+}
+
+// Añadir efecto de animación al checkbox
+document.getElementById('privacy-policy').addEventListener('click', function(e) {
+  if (!this.checked) {
+    this.style.transform = 'scale(0.95)';
+    setTimeout(() => {
+      this.style.transform = '';
+    }, 100);
+  }
+});
+</script>
+
             <button type="submit" class="form-button">
                 ¡Solicitar estudio de adaptación!
             </button>
