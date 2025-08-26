@@ -86,6 +86,73 @@ function animateOnScroll() {
     });
 }
 
+// Función para generar el HTML estilizado con Tailwind para KIVI
+function generateEmailHTML(formData) {
+    return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <meta charset="UTF-8">
+    <style>
+    body { font-family: sans-serif; }
+    .container { max-width: 600px; margin: 0 auto; }
+    .header { background-color: #2563eb; color: white; padding: 20px; text-align: center; }
+    .content { padding: 20px; background-color: #f9fafb; }
+    .field { margin-bottom: 15px; }
+    .label { font-weight: bold; color: #374151; margin-bottom: 5px; }
+    .value { color: #111827; }
+    .footer { padding: 20px; text-align: center; background-color: #e5e7eb; color: #6b7280; font-size: 14px; }
+    </style>
+    </head>
+    <body>
+    <div class="container">
+    <div class="header">
+    <h1>Nueva Solicitud de Adaptación KIVI</h1>
+    <p>Transformaciones KIVI - Formulario de Contacto</p>
+    </div>
+
+    <div class="content">
+    <div class="field">
+    <div class="label">Nombre completo</div>
+    <div class="value">${formData.nombre} ${formData.apellidos}</div>
+    </div>
+
+    <div class="field">
+    <div class="label">Teléfono</div>
+    <div class="value">${formData.telefono}</div>
+    </div>
+
+    <div class="field">
+    <div class="label">Email</div>
+    <div class="value">${formData.email}</div>
+    </div>
+
+    <div class="field">
+    <div class="label">Vehículo</div>
+    <div class="value">${formData.marca} ${formData.modelo} (${formData.anio})</div>
+    </div>
+
+    <div class="field">
+    <div class="label">Producto de interés</div>
+    <div class="value">${formData.interes}</div>
+    </div>
+
+    <div class="field">
+    <div class="label">Necesidades específicas</div>
+    <div class="value">${formData.necesidades}</div>
+    </div>
+    </div>
+
+    <div class="footer">
+    <p>Este mensaje fue generado automáticamente desde el formulario de contacto de Transformaciones KIVI</p>
+    <p>© ${new Date().getFullYear()} Transformaciones KIVI - Todos los derechos reservados</p>
+    </div>
+    </div>
+    </body>
+    </html>
+    `;
+}
+
 // Inicialización cuando el DOM está listo
 document.addEventListener('DOMContentLoaded', function() {
     // Menú móvil
@@ -186,7 +253,7 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('scroll', animateOnScroll);
 
     // ==============================================
-    // CÓDIGO PARA EL ENVÍO DEL FORMULARIO
+    // CÓDIGO PARA EL ENVÍO DEL FORMULARIO A SUPABASE
     // ==============================================
     const contactForm = document.querySelector('.contact-form');
     if (contactForm) {
@@ -214,17 +281,34 @@ document.addEventListener('DOMContentLoaded', function() {
                                      necesidades: document.getElementById('necesidades').value
                 };
 
-                // Enviar datos al f
-                console.log(formData)
-                const response = await axios.post(
-                    'http://127.0.0.1:8000/solicitud',
-                    formData,
-                    {
-                        headers: {
-                            'Content-Type': 'application/json'
-                        }
-                    }
-                );
+                // Generar HTML para el correo
+                const emailHTML = generateEmailHTML(formData);
+
+                // Información de Supabase
+                const SUPABASE_URL = 'https://tubddowbahgxmdwhvgvn.supabase.co';
+                const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_QBELiN_jeSsquh_oRpWTDg_cZfAPiju';
+                const FUNCTION_URL = `${SUPABASE_URL}/functions/v1/email-sender`;
+
+                // Enviar datos a Supabase
+                const response = await fetch(FUNCTION_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${SUPABASE_PUBLISHABLE_KEY}`,
+                        'apikey': SUPABASE_PUBLISHABLE_KEY
+                    },
+                    body: JSON.stringify({
+                        to: 'odremanbernardo2@gmail.com',  // Destinatario fijo
+                        from: formData.email,
+                        subject: `Solicitud de Adaptación KIVI - ${formData.nombre} ${formData.apellidos}`,
+                        text: `Nueva solicitud de adaptación KIVI de ${formData.nombre} ${formData.apellidos}. Vehículo: ${formData.marca} ${formData.modelo} (${formData.anio}). Interés: ${formData.interes}. Teléfono: ${formData.telefono}. Email: ${formData.email}`,
+                                         html: emailHTML
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Error ${response.status}: ${response.statusText}`);
+                }
 
                 // Mostrar mensaje de éxito
                 notification.textContent = '✓ Solicitud enviada correctamente';
@@ -240,21 +324,15 @@ document.addEventListener('DOMContentLoaded', function() {
             } catch (error) {
                 // Manejar errores
                 console.error('Error completo:', error);
-
                 let errorMessage = '✗ Error al enviar la solicitud. ';
 
-                if (error.response) {
-                    // Error de servidor (4xx, 5xx)
-                    errorMessage += `Servidor respondió: ${error.response.status} - ${error.response.data.message || 'Sin detalles'}`;
-                } else if (error.request) {
-                    // La solicitud fue hecha pero no hubo respuesta
-                    errorMessage += 'No se recibió respuesta del servidor';
-                } else {
-                    // Error al configurar la solicitud
+                if (error.message) {
                     errorMessage += error.message;
+                } else {
+                    errorMessage += 'Inténtelo de nuevo más tarde.';
                 }
 
-                notification.innerHTML = errorMessage;
+                notification.textContent = errorMessage;
                 notification.classList.remove('loading', 'success');
                 notification.classList.add('error');
             }
