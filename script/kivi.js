@@ -298,7 +298,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         'apikey': SUPABASE_PUBLISHABLE_KEY
                     },
                     body: JSON.stringify({
-                        to: 'odremanbernardo2@gmail.com',  // Destinatario fijo
+                        to: 'postventa@kimotor2005.es',  // Destinatario fijo
                         from: formData.email,
                         subject: `Solicitud de Adaptación KIVI - ${formData.nombre} ${formData.apellidos}`,
                         text: `Nueva solicitud de adaptación KIVI de ${formData.nombre} ${formData.apellidos}. Vehículo: ${formData.marca} ${formData.modelo} (${formData.anio}). Interés: ${formData.interes}. Teléfono: ${formData.telefono}. Email: ${formData.email}`,
